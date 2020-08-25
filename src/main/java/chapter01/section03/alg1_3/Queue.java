@@ -1,7 +1,5 @@
 package chapter01.section03.alg1_3;
 
-import chapter01.section03.alg1_2.Stack;
-
 import java.util.Iterator;
 
 public class Queue<Item> implements Iterable<Item> {

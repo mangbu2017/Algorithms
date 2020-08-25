@@ -37,6 +37,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         return x.N;
     }
 
+    public boolean isEmpty() {
+        if(root != null)
+            return root.N == 0;
+        return true;
+    }
+
     public Value get(Key key) {
         return get(root, key);
     }
@@ -303,12 +309,15 @@ public class BST<Key extends Comparable<Key>, Value> {
         /**
          * 保证次序采用 中序遍历 左 => 根 => 右
          */
-        if(cmpStart < 0)
+        if(cmpStart < 0) // 在左边界右侧 => 左子树要一直遍历完
             keys(x.left, queue, start, end);
-        if(cmpStart <= 0 && cmpEnd >= 0)
+        if(cmpStart <= 0 && cmpEnd >= 0) // 在开始遍历根
             queue.enqueue(x.key);
-        if(cmpEnd > 0)
+        if(cmpEnd > 0) // 最后遍历右子树
             keys(x.right, queue, start, end);
+        /**
+         * 相较于正常的中序遍历 只是增加了限制条件
+         */
     }
 
     @Override
