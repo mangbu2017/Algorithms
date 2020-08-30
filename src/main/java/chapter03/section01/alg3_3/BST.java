@@ -46,6 +46,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     public Value get(Key key) {
         return get(root, key);
     }
+    public boolean contains(Key key) {
+        return get(key) != null;
+    }
 
     private Value get(Node x, Key key) {
         if(x == null)
@@ -102,6 +105,10 @@ public class BST<Key extends Comparable<Key>, Value> {
     public Key min() {
         return min(root).key;
     }
+    public Key max() {
+        return max(root).key;
+    }
+
 
     private Node min(Node x) {
         if(x.left == null)
@@ -115,9 +122,6 @@ public class BST<Key extends Comparable<Key>, Value> {
         return min(x.right);
     }
 
-    public Key max() {
-        return max(root).key;
-    }
 
     public Key floor(Key key) {
         Node x = floor(root, key);

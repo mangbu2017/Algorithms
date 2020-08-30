@@ -1,5 +1,8 @@
 package chapter03.section03.alg3_4;
 
+import chapter01.section03.alg1_3.Queue;
+import chapter03.section01.alg3_3.BST;
+
 public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private Node root;
 
@@ -23,12 +26,15 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private boolean isRed(Node x) {
         if(x == null)
             return false;
-        return x.color = RED;
+        return x.color == RED;
     }
 
+    /**
+     * 誊抄时容易出现bug
+     */
     Node rotateLeft(Node h) {
         Node x = h.right;
-        h.right = x.right;
+        h.right = x.left;
         x.left = h;
         x.color = h.color;
         h.color = RED;
@@ -92,6 +98,32 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
         x.N = size(x.left) + size(x.right) + 1;
         return x;
+    }
+
+    public Value get(Key key) {
+        return get(root, key);
+    }
+
+    /**
+     * todo 验证
+     */
+    public boolean contains(Key key) {
+        return get(key) != null;
+    }
+
+    private Value get(Node x, Key key) {
+        if(x == null)
+            return null;
+
+        int cmp = key.compareTo(x.key);
+
+        if(cmp < 0) {
+            return get(x.left, key);
+        }else if(cmp > 0) {
+            return get(x.right, key);
+        }else {
+            return x.val;
+        }
     }
 
     public int size() {
@@ -172,5 +204,55 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         }
     }
     /** 删除最小键 end */
+
+    public Key min() {
+        return min(root).key;
+    }
+    public Key max() {
+        return max(root).key;
+    }
+
+    private Node min(Node x) {
+        if(x.left == null)
+            return x;
+        return min(x.left);
+    }
+
+    private Node max(Node x) {
+        if(x.right == null)
+            return x;
+        return max(x.right);
+    }
+
+    public Iterable<Key> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key start, Key end) {
+        Queue<Key> queue = new Queue<Key>();
+        keys(root, queue, start, end);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<Key> queue, Key start, Key end) {
+        if(x == null)
+            return;
+
+        int cmpStart = start.compareTo(x.key);
+        int cmpEnd = end.compareTo(x.key);
+
+        /**
+         * 保证次序采用 中序遍历 左 => 根 => 右
+         */
+        if(cmpStart < 0) // 在左边界右侧 => 左子树要一直遍历完
+            keys(x.left, queue, start, end);
+        if(cmpStart <= 0 && cmpEnd >= 0) // 在开始遍历根
+            queue.enqueue(x.key);
+        if(cmpEnd > 0) // 最后遍历右子树
+            keys(x.right, queue, start, end);
+        /**
+         * 相较于正常的中序遍历 只是增加了限制条件
+         */
+    }
 
 }
