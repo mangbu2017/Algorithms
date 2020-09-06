@@ -1,4 +1,9 @@
-package chapter04.section02;
+package chapter04.section02.alg4_5;
+
+import chapter04.section02.DepthFirstOrder;
+import chapter04.section02.DiGraph;
+import chapter04.section02.DirectedCycle;
+import chapter04.section02.SymbolDiGraph;
 
 /**
  * 有向无环图的拓扑排序
@@ -9,7 +14,7 @@ public class Topological {
     public Topological(DiGraph G) {
         DirectedCycle cycleFinder = new DirectedCycle(G);
         if(!cycleFinder.hasCycle()) {
-            DeepFirstOrder dfs = new DeepFirstOrder(G);
+            DepthFirstOrder dfs = new DepthFirstOrder(G);
             order = dfs.reversePost();
         }
     }

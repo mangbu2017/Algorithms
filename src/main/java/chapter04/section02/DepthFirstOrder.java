@@ -3,7 +3,7 @@ package chapter04.section02;
 import chapter01.section03.alg1_2.Stack;
 import chapter01.section03.alg1_3.Queue;
 
-public class DeepFirstOrder {
+public class DepthFirstOrder {
     private boolean[] marked;
     /**
      * 所有顶点的前序排列
@@ -18,7 +18,7 @@ public class DeepFirstOrder {
      */
     private Stack<Integer> reversePost;
 
-    public DeepFirstOrder(DiGraph G) {
+    public DepthFirstOrder(DiGraph G) {
         pre = new Queue<Integer>();
         post = new Queue<Integer>();
         reversePost = new Stack<Integer>();

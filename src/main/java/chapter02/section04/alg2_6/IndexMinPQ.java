@@ -1,5 +1,8 @@
 package chapter02.section04.alg2_6;
 
+/**
+ * 允许访问已经插入优先队列的元素
+ */
 public class IndexMinPQ<Key extends Comparable<Key>> {
     private int N;
     /**

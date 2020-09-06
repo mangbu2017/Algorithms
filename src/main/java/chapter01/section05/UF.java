@@ -1,7 +1,6 @@
 package chapter01.section05;
 
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
 
 public class UF {
     private int[] id;

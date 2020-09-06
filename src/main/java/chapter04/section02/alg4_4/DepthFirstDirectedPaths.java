@@ -4,13 +4,16 @@ import chapter01.section03.alg1_4.Bag;
 import chapter04.section02.DiGraph;
 import edu.princeton.cs.algs4.In;
 
-public class DeepFirstDirectedPaths {
+/**
+ * 有向图路径 (是否可达)
+ */
+public class DepthFirstDirectedPaths {
     private boolean[] marked;
 
     /**
      * 根据一个起点 深度遍历 初始化
      */
-    public DeepFirstDirectedPaths(DiGraph G, int s) {
+    public DepthFirstDirectedPaths(DiGraph G, int s) {
         marked = new boolean[G.V()];
         dfs(G, s);
     }
@@ -18,7 +21,7 @@ public class DeepFirstDirectedPaths {
     /**
      * 根据多个起点 深度遍历 初始化
      */
-    public DeepFirstDirectedPaths(DiGraph G, Iterable<Integer> sources) {
+    public DepthFirstDirectedPaths(DiGraph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         for(int s: sources) {
             if(!marked[s])
@@ -37,7 +40,7 @@ public class DeepFirstDirectedPaths {
     /**
      * 是否可达
      */
-    private boolean marked(int v) {
+    public boolean marked(int v) {
         return marked[v];
     }
 
@@ -55,7 +58,7 @@ public class DeepFirstDirectedPaths {
         sources.add(2);
         sources.add(6);
 
-        DeepFirstDirectedPaths reachable = new DeepFirstDirectedPaths(G, sources);
+        DepthFirstDirectedPaths reachable = new DepthFirstDirectedPaths(G, sources);
 
         for(int v = 0; v < G.V(); v ++) {
             if(reachable.marked(v))

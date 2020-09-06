@@ -1,11 +1,7 @@
 package chapter04.section02;
 
 import chapter03.section03.alg3_4.RedBlackBST;
-import chapter04.section01.Graph;
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
-
-import java.util.Arrays;
 
 public class SymbolDiGraph {
     private RedBlackBST<String, Integer> st;
@@ -59,7 +55,7 @@ public class SymbolDiGraph {
         return keys[i];
     }
 
-    DiGraph G() {
+    public DiGraph G() {
         return G;
     }
 }
