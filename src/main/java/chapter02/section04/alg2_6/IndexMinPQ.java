@@ -8,11 +8,13 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
     /**
      * 索引数组(实际的二叉堆)
      * 新位置 => 老位置
+     * pq[1]最小值的实际位置
      */
     private int[] pq;
     /**
      * 索引数组的逆序
      * 老位置 => 新位置
+     * pq[1] keys中下标1的实际排名
      */
     private int[] qp;
     private Key[] keys;
@@ -43,6 +45,9 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
         N ++;
         qp[k] = N; // qp保存了第k个元素
         pq[N] = k;
+        /**
+         * keys是
+         */
         keys[k] = key; // 这里相当于只是一个Map
         swim(N);
     }
@@ -87,9 +92,35 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
      * @param j
      */
     private void exch(int i, int j) {
-        int temp = pq[i];
+//        int pqi = pq[i];
+//        int pqj = pq[j];
+//
+//        /** pq正常交换 */
+//        int temp = pq[pqi];
+//        pq[pqi] = pq[pqj];
+//        pq[pqj] = temp;
+//
+//        /** qp交换 */
+//        int qpi = pq[pqi],
+//            qpj = pq[pqj];
+//
+//        temp = qp[qpi];
+//        qp[qpi] = qp[qpj];
+//        qp[qpj] = temp;
+//
+//        Key temp1 = keys[qpi];
+//        keys[qpi] = keys[qpj];
+//        keys[qpj] = temp1;
+        /**
+         * keys中保存实际元素 根本不用动
+         */
+        /** 位置交换 */
+        int swap = pq[i];
         pq[i] = pq[j];
-        pq[j] = temp;
+        pq[j] = swap;
+        /** 排名交换 todo 真尼玛费脑子 */
+        qp[pq[i]] = i;
+        qp[pq[j]] = j;
     }
 
     /**
@@ -97,14 +128,19 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
      *  %%% 获取索引在原数组对应的值进行比较 %%%
      */
     private boolean less(int i, int j) {
+//        System.out.println(i + ":" + j);
+//        System.out.println(pq[i] + "#" + pq[j]);
+//        System.out.println(keys[pq[i]] + "*" + keys[pq[j]]);
         return keys[pq[i]].compareTo(keys[pq[j]]) > 0;
     }
+
     private void swim(int k) {
         while(k > 1 && less(k / 2, k)) {
             exch(k , k / 2);
             k = k / 2;
         }
     }
+
     private void sink(int k) {
         while(k * 2 <= N) { // 左孩子
             int l = 2 * k;

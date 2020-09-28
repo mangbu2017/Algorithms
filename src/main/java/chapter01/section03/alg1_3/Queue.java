@@ -50,6 +50,20 @@ public class Queue<Item> implements Iterable<Item> {
         return new QueueIterator();
     }
 
+    @Override
+    public String toString() {
+        String s = "****** queue N: " + N + "******";
+        for(Iterator<Item> it = iterator(); it.hasNext(); ) {
+            s += "\n";
+            System.out.println("xjfekjsf");
+            Item i = it.next();
+            System.out.println(i);
+            s += i;
+        }
+        s += "\n******";
+        return s;
+    }
+
     private class QueueIterator implements Iterator<Item> {
         private Node p = first;
         public boolean hasNext() {

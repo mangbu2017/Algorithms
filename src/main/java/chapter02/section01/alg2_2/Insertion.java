@@ -29,6 +29,18 @@ public class Insertion {
             return false;
     }
 
+    private static boolean less(String a, String b, int i) {
+        return a.substring(i).compareTo(b.substring(i)) < 0;
+    }
+
+    @Test
+    public void demo2() {
+        /**
+         * 会报String下标越界错误
+         */
+        System.out.println("aaa".substring(5));
+    }
+
     private static void exch(Comparable[] arr, int i, int j) {
         Comparable temp = arr[i];
         arr[i] = arr[j];
@@ -39,6 +51,17 @@ public class Insertion {
         int len = arr.length;
         for(int i = 1; i < len; i ++) {
             for(int j = i; j > 0 && less(arr[j], arr[j - 1]); j --) {
+                exch(arr, j, j - 1);
+            }
+        }
+    }
+
+    /**
+     * 插入排序就是不断地将后一个插入到前面的有序数组中
+     */
+    public static void sort(String[] arr, int start, int end, int d) {
+        for(int i = start; i <= end; i ++) {
+            for(int j = i; j > start && less(arr[j], arr[j - 1], d); j --) {
                 exch(arr, j, j - 1);
             }
         }

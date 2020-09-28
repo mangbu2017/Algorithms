@@ -2,8 +2,11 @@ package chapter04.section04.alg4_9;
 
 import chapter01.section03.alg1_2.Stack;
 import chapter02.section04.alg2_6.IndexMinPQ;
+import chapter04.section04.DijkstraAllPairsSP;
 import chapter04.section04.DirectedEdge;
 import chapter04.section04.EdgeWeightedDiGraph;
+import edu.princeton.cs.algs4.In;
+import org.junit.Test;
 
 public class DijkstraSP {
     /**
@@ -18,6 +21,7 @@ public class DijkstraSP {
      * 顶点: 权重(优先级)
      */
     private IndexMinPQ<Double> pq;
+//    edu.princeton.cs.algs4.IndexMinPQ
 
     public DijkstraSP(EdgeWeightedDiGraph G, int s) {
         pq = new IndexMinPQ<Double>(G.V());
@@ -77,5 +81,28 @@ public class DijkstraSP {
             path.push(e);
         }
         return path;
+    }
+
+    /**
+     * 正确
+     */
+    static public void main(String[] args) {
+//        EdgeWeightedDiGraph g = new EdgeWeightedDiGraph(new In("files/mediumEWD.txt"));
+        EdgeWeightedDiGraph g = new EdgeWeightedDiGraph(new In("files/tinyEWD"));
+        System.out.println(g);
+
+        DijkstraSP sp = new DijkstraSP(g, 0);
+
+        for(int t = 0; t < g.V(); t ++) {
+            System.out.print(0 + " to " + t);
+            System.out.printf(" (%4.2f): ", sp.disTo(t));
+            if(sp.hasPathTo(t))
+                for(DirectedEdge e: sp.pathTo(t))
+                    System.out.print(e + "  ");
+            System.out.println();
+        }
+
+//        DijkstraAllPairsSP allSp = new DijkstraAllPairsSP(g);
+//        System.out.println(allSp.path(0, 1));
     }
 }

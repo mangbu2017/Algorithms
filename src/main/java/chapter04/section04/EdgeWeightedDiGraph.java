@@ -64,13 +64,16 @@ public class EdgeWeightedDiGraph {
         return b;
     }
 
-    // todo
     @Override
     public String toString() {
-        return "EdgeWeightedDiGraph{" +
-                "V=" + V +
-                ", E=" + E +
-                ", adj=" + Arrays.toString(adj) +
-                '}';
+       String res = "";
+       res += "v: " + V + "\n";
+       res += "e: " + E + "\n";
+
+       for(DirectedEdge e: edges()) {
+           res += e.from() + " -> " + e.to() + "\n";
+       }
+
+       return res;
     }
 }
